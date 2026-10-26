@@ -31,6 +31,10 @@ Run it locally by serving the folder, for example `python -m http.server`, and o
 
 This is the initial design. It will be refined through hardware prototyping (ESP32, camera module, OLED screen with a light ring, small robot arm); the final look and motion appear in the portfolio renders.
 
+## Credits
+
+Designed and built by JerryWu777, with the help of Claude (Anthropic) for coding.
+
 ## License
 
 MIT © 2026 JerryWu777
