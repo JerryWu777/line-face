@@ -34,12 +34,12 @@ This is the initial design. It will be refined through hardware prototyping (ESP
 ## How this was made
 
 **My role: the idea and the design**
-- The design inspiration and direction: a face that changes form with its role, punctuation when it looks at you and a horizon when it works.
+- I started by sketching faces by hand to find the inspiration and the design direction: a face that changes form with its role, punctuation when it looks at you and a horizon when it works.
 - The design thinking behind it: which state uses which form, how the eyes melt into the line, and the two signature moves (stretch to nudge, bow to become a lamp).
 - Choosing between options and reviewing every iteration of the face, the motion and this page.
 
-**With Claude: making it visible**
-- Drawing my expressions and motions as images and animation (`face.js`).
+**With Claude: from sketch to image**
+- Turning my sketches and rules into images and animation through code (`face.js`).
 - Building this web page.
 
 ## License
