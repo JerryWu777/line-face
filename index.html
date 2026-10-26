@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Line Face</title>
+<meta name="description" content="The expression and motion language of a desk-lamp robot: punctuation when it looks at you, a horizon when it works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@1,500;1,600&family=JetBrains+Mono:wght@500&family=Mulish:wght@400;600;800&display=swap">
+<style>
+/* Layout: a specimen sheet for one face language — live stage, the rule, the two forms, the switch, the motions. */
+:root {
+  --paper: #F3F0E7; --ink: #2C352F; --muted: #646A60; --rule: #D8D5C9; --chip: #E7E6DC;
+  --green: #5E745B; --sand: #85602F; --orange: #A8461B; --orange-fill: #D4602D;
+  --screen: #1E201C; --bezel: #4A4F46; --glyph: #F4ECDD; --lamp: #FFD9A6; --arm: #3B4A40; --joint: #B5864C; --desk: #9DA294;
+  --display: "Crimson Pro", Georgia, serif;
+  --body: "Mulish", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #181B17; --ink: #E8E5DA; --muted: #A2A79B; --rule: #30352E; --chip: #232722;
+    --green: #93AB8F; --sand: #D9B07A; --orange: #F2905F; --orange-fill: #E56A38; --bezel: #5A6056; --arm: #B9C6B4; --joint: #D2A46A; --desk: #6E7468; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 40px max(16px, env(safe-area-inset-right, 0px)) 72px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 64px; }
+h1, h2 { font-family: var(--display); font-style: italic; font-weight: 600; line-height: 1.12; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(40px, 6vw, 68px); }
+h2 { font-size: clamp(26px, 3.2vw, 34px); }
+p { margin: 0; }
+.eyebrow { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.lead { max-width: 62ch; color: var(--muted); font-size: 17px; }
+.c { color: var(--green); font-weight: 800; }
+.d { color: var(--sand); font-weight: 800; }
+section { display: grid; gap: 22px; }
+button { font: 600 14px var(--body); color: var(--muted); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 7px 15px; cursor: pointer; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:focus-visible { outline: 2px solid var(--orange-fill); outline-offset: 2px; }
+
+/* hero stage */
+.hero { display: grid; gap: 18px; }
+.stage { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); gap: 32px; align-items: center; padding-block: 24px; border-block: 1px solid var(--rule); }
+.stage canvas.face { width: min(100%, 360px); aspect-ratio: 1; justify-self: center; display: block; }
+.stage canvas.arm { width: 100%; aspect-ratio: 16 / 10; display: block; }
+.controls { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.readout { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 32px; }
+.readout dt { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.readout dd { margin: 2px 0 0; }
+
+/* rule */
+.rule { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.rule > div { display: grid; gap: 6px; padding-top: 16px; border-top: 3px solid var(--green); }
+.rule > div.dform { border-color: var(--sand); }
+.rule h3 { margin: 0; font: 800 18px var(--body); }
+
+/* states */
+.rows { display: grid; gap: 18px; }
+.row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: center; }
+.row .tag b { display: block; font: italic 600 22px var(--display); }
+.row .tag span { font-size: 14px; color: var(--muted); }
+.cells { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.cell { display: grid; gap: 6px; justify-items: center; background: none; border: 0; border-radius: 12px; padding: 8px 4px; color: var(--ink); }
+.cell:hover { background: var(--chip); }
+.cell canvas { width: 100%; max-width: 140px; aspect-ratio: 1; display: block; }
+.cell span { font-size: 14px; font-weight: 600; }
+.cell .sig, .sig { color: var(--orange); }
+
+/* switch */
+.switch { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: center; }
+.switch canvas { width: min(100%, 260px); aspect-ratio: 1; justify-self: center; display: block; }
+
+/* motion */
+.motion { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 22px 24px; }
+.motion figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.motion canvas { width: 100%; aspect-ratio: 16 / 10; display: block; background: var(--chip); border-radius: 8px; }
+.motion figcaption p { color: var(--muted); font-size: 15px; }
+
+/* open source */
+.open { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px 40px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.open h3 { margin: 0 0 6px; font: 800 16px var(--body); }
+.open ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
+.open a { color: var(--orange); }
+code { font: 500 14px var(--mono); }
+footer { color: var(--muted); font-size: 14px; }
+
+@media (max-width: 820px) {
+  .stage, .switch, .rule { grid-template-columns: minmax(0, 1fr); }
+  .row { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 460px) { .cells { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>A face that tells you whether it is looking at you or working.</h1>
+    <p class="lead">When it looks at you, the face is written in <span class="c">punctuation</span>: dots, bars and arcs. When it is thinking, talking or lighting your desk, the eyes melt into a single <span class="d">horizon</span> line. This page runs the same rules that drive the robot's screen.</p>
+  </header>
+
+  <section class="stage" aria-label="Live preview">
+    <canvas class="face" id="stage-face" aria-label="Face preview"></canvas>
+    <canvas class="arm" id="stage-arm" aria-label="Arm motion preview"></canvas>
+    <div class="controls" id="state-buttons" role="group" aria-label="States"></div>
+    <dl class="readout">
+      <div><dt id="read-form">Form</dt><dd id="read-face"></dd></div>
+      <div><dt>Motion</dt><dd id="read-move"></dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="rule-title">
+    <span class="eyebrow">The rule</span>
+    <h2 id="rule-title">Looks at you → <span class="c">C</span> · Works → <span class="d">D</span></h2>
+    <div class="rule">
+      <div><h3 class="c">C · Punctuation</h3><p>Idle, Listen, Nudge. Three strokes only: a dot, a bar and an arc. Friendly and readable at a glance.</p></div>
+      <div class="dform"><h3 class="d">D · Horizon</h3><p>Think, Answer, Sleep, Lamp. One line that ripples, speaks, rests and finally floods the screen with light.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="states-title">
+    <span class="eyebrow">Seven states</span>
+    <h2 id="states-title">Expressions</h2>
+    <div class="rows" id="rows"></div>
+  </section>
+
+  <section class="switch" aria-labelledby="switch-title">
+    <div style="display:grid;gap:12px">
+      <span class="eyebrow">The switch</span>
+      <h2 id="switch-title">The eyes melt into the line</h2>
+      <p class="lead">Changing role changes form. From C to D the two eyes sink into the horizon; from D to C the line lifts and gathers back into eyes. The change itself tells you what it is doing.</p>
+      <div><button id="switch-btn" type="button">Play the switch</button></div>
+    </div>
+    <canvas id="switch-face" aria-label="Switch demonstration"></canvas>
+  </section>
+
+  <section aria-labelledby="motion-title">
+    <span class="eyebrow">Motion language</span>
+    <h2 id="motion-title">Every state is a face and a move</h2>
+    <p class="lead">You sit on the right; the box on the left is your computer. The two signature moves are marked in orange.</p>
+    <div class="motion" id="motion"></div>
+  </section>
+
+  <section class="open" aria-label="About this project">
+    <div>
+      <h3>Status</h3>
+      <ul><li>Initial design, refined through prototyping.</li><li>The final look and motion are shown in the portfolio renders.</li></ul>
+    </div>
+    <div>
+      <h3>Open source</h3>
+      <ul><li><code>face.js</code> draws every expression and arm pose in unit coordinates, ready to port to an ESP32 + OLED.</li><li>MIT licensed. Source: <a id="repo-link" href="https://github.com/JerryWu777/line-face">GitHub repository</a>.</li></ul>
+    </div>
+    <div>
+      <h3>Hardware direction</h3>
+      <ul><li>ESP32, a camera module, an OLED screen ringed with light, and a small robot arm.</li><li>Specific parts are still being chosen.</li></ul>
+    </div>
+  </section>
+
+  <footer id="credit">Design and code by <span id="author">JerryWu777</span>, 2026.</footer>
+</div>
+
+<script src="face.js"></script>
+<script>
+(() => {
+  const { STATES, FORM, drawFace, drawArm } = window.LineFace;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let C = {};
+  const readColors = () => { const s = getComputedStyle(document.documentElement); for (const k of ['screen', 'bezel', 'glyph', 'lamp', 'arm', 'joint', 'desk']) C[k] = s.getPropertyValue('--' + k).trim(); };
+
+  // grid of states, grouped by form
+  const items = [];
+  const rows = document.getElementById('rows');
+  for (const [form, label, sub] of [['C', 'C · Punctuation', 'looks at you'], ['D', 'D · Horizon', 'is working']]) {
+    const row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = `<div class="tag"><b class="${form.toLowerCase()}">${label}</b><span>${sub}</span></div><div class="cells"></div>`;
+    for (const s of STATES.filter(x => x.form === form)) {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'cell'; b.id = 'cell-' + s.id;
+      b.setAttribute('aria-label', `Show ${s.name} in the preview`);
+      b.innerHTML = `<canvas></canvas><span>${s.name}${s.signature ? ' <span class="sig">★</span>' : ''}</span>`;
+      b.addEventListener('click', () => { setStage(s.id, true); document.querySelector('.stage').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); });
+      row.querySelector('.cells').appendChild(b);
+      items.push({ cv: b.querySelector('canvas'), kind: 'face', state: s.id, mem: {}, off: Math.random() * 3 });
+    }
+    rows.appendChild(row);
+  }
+  const motion = document.getElementById('motion');
+  for (const s of STATES) {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `<canvas aria-label="${s.name} arm motion"></canvas><figcaption><b>${s.name}</b>${s.signature ? ' <span class="sig">· signature move</span>' : ''}<p>${s.move}</p></figcaption>`;
+    motion.appendChild(fig);
+    items.push({ cv: fig.querySelector('canvas'), kind: 'arm', state: s.id });
+  }
+
+  // live stage
+  const stage = { state: 'idle', auto: true, since: 0, mem: {} };
+  const buttons = document.getElementById('state-buttons');
+  for (const s of STATES) {
+    const b = document.createElement('button'); b.type = 'button'; b.id = 'state-' + s.id; b.dataset.state = s.id;
+    b.textContent = `${s.form} · ${s.name}${s.signature ? ' ★' : ''}`;
+    b.addEventListener('click', () => setStage(s.id, true)); buttons.appendChild(b);
+  }
+  const autoBtn = document.createElement('button'); autoBtn.type = 'button'; autoBtn.id = 'state-auto';
+  autoBtn.addEventListener('click', () => { stage.auto = !stage.auto; stage.since = clock; sync(); });
+  buttons.appendChild(autoBtn);
+  function sync() {
+    buttons.querySelectorAll('[data-state]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.state === stage.state)));
+    autoBtn.textContent = stage.auto ? 'Auto-playing · stop' : 'Auto-play';
+    autoBtn.setAttribute('aria-pressed', String(stage.auto));
+    const s = STATES.find(x => x.id === stage.state);
+    document.getElementById('read-form').textContent = s.form === 'C' ? 'Face · C Punctuation' : 'Face · D Horizon';
+    document.getElementById('read-face').textContent = s.face;
+    document.getElementById('read-move').textContent = s.move;
+  }
+  function setStage(state, manual) {
+    const prev = state !== stage.state ? stage.state : null;
+    stage.state = state; stage.since = clock; stage.mem = prev ? { prev } : {};
+    if (manual) stage.auto = false;
+    sync();
+  }
+
+  // switch demo: idle (C) ⇄ think (D)
+  const sw = { state: 'idle', since: 0, mem: {} };
+  document.getElementById('switch-btn').addEventListener('click', () => {
+    const next = sw.state === 'idle' ? 'think' : 'idle';
+    sw.mem = { prev: sw.state }; sw.state = next; sw.since = clock;
+  });
+
+  // render loop (only what is on screen)
+  const visible = new WeakSet();
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)), { rootMargin: '120px' });
+  const stageFace = document.getElementById('stage-face'), stageArm = document.getElementById('stage-arm'), swFace = document.getElementById('switch-face');
+  items.forEach(i => io.observe(i.cv)); [stageFace, stageArm, swFace].forEach(c => io.observe(c));
+  const STILL = { idle: 1.2, listen: 0.9, think: 1.1, answer: 0.3, nudge: 1.6, sleep: 1.0, lamp: 4.8 };
+  let clock = 0, last = performance.now();
+  function render() {
+    readColors();
+    const T = (s, t) => reduced ? STILL[s] : t;
+    for (const i of items) {
+      if (!visible.has(i.cv) && clock > 0.5) continue;
+      if (i.kind === 'face') drawFace(i.cv, i.state, T(i.state, clock + i.off), i.mem, C);
+      else drawArm(i.cv, i.state, T(i.state, clock), C);
+    }
+    const ts = reduced ? STILL[stage.state] : clock - stage.since;
+    drawFace(stageFace, stage.state, ts, stage.mem, C);
+    drawArm(stageArm, stage.state, ts, C);
+    drawFace(swFace, sw.state, reduced ? STILL[sw.state] : clock - sw.since, sw.mem, C);
+  }
+  function loop(now) {
+    const dt = Math.min(0.1, (now - last) / 1000); last = now; clock += dt;
+    if (stage.auto && clock - stage.since > (stage.state === 'lamp' ? 6.5 : 4.5)) {
+      const i = STATES.findIndex(s => s.id === stage.state);
+      setStage(STATES[(i + 1) % STATES.length].id, false);
+    }
+    render();
+    if (!reduced) requestAnimationFrame(loop);
+  }
+  sync();
+  if (reduced) { render(); addEventListener('resize', render); } else requestAnimationFrame(t => { last = t; loop(t); });
+})();
+</script>
+</body>
+</html>
