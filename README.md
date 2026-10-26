@@ -31,9 +31,16 @@ Run it locally by serving the folder, for example `python -m http.server`, and o
 
 This is the initial design. It will be refined through hardware prototyping (ESP32, camera module, OLED screen with a light ring, small robot arm); the final look and motion appear in the portfolio renders.
 
-## Credits
+## How this was made
 
-Designed and built by JerryWu777, with the help of Claude (Anthropic) for coding.
+**My role**
+- Defined the design language: the C ⇄ D rule (punctuation when it looks at you, horizon when it works) and which state uses which form.
+- Chose the expressions and the two signature moves (stretch to nudge, bow to become a lamp) through several rounds of comparison.
+- Directed the visual style and reviewed every iteration of the face, the motion and this page.
+
+**With Claude**
+- Implemented my rules in code: the drawing functions in `face.js` and this web page.
+- Generated the comparison drafts I chose from.
 
 ## License
 
