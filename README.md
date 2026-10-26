@@ -33,14 +33,14 @@ This is the initial design. It will be refined through hardware prototyping (ESP
 
 ## How this was made
 
-**My role**
-- Defined the design language: the C ⇄ D rule (punctuation when it looks at you, horizon when it works) and which state uses which form.
-- Chose the expressions and the two signature moves (stretch to nudge, bow to become a lamp) through several rounds of comparison.
-- Directed the visual style and reviewed every iteration of the face, the motion and this page.
+**My role: the idea and the design**
+- The design inspiration and direction: a face that changes form with its role, punctuation when it looks at you and a horizon when it works.
+- The design thinking behind it: which state uses which form, how the eyes melt into the line, and the two signature moves (stretch to nudge, bow to become a lamp).
+- Choosing between options and reviewing every iteration of the face, the motion and this page.
 
-**With Claude**
-- Implemented my rules in code: the drawing functions in `face.js` and this web page.
-- Generated the comparison drafts I chose from.
+**With Claude: making it visible**
+- Drawing my expressions and motions as images and animation (`face.js`).
+- Building this web page.
 
 ## License
 
